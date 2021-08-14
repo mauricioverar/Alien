@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/musk.ogg-fbe1dfecfa3beb434c9be75bbe7fe06b.oggstr"
+
+[deps]
+
+source_file="res://Sounds/musk.ogg"
+dest_files=[ "res://.import/musk.ogg-fbe1dfecfa3beb434c9be75bbe7fe06b.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

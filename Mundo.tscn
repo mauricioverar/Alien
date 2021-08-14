@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Mundo.gd" type="Script" id=2]
+[ext_resource path="res://RigidBody2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Interfaz.tscn" type="PackedScene" id=4]
+[ext_resource path="res://png/bg (2).png" type="Texture" id=5]
+[ext_resource path="res://Sounds/fin.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sounds/musk.ogg" type="AudioStream" id=7]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0.68103, -1.34702, 0, 0, 0, 0, 1303.04, 2.98271, 0, 0, 0, 0, 1301.26, 951.609, 0, 0, 0, 0, 0.402084, 950.401, 0, 0, 0, 0, 0.68103, -1.34702 )
+}
+
+[node name="Mundo" type="Node"]
+script = ExtResource( 2 )
+Roca = ExtResource( 3 )
+
+[node name="Fondo" type="TextureRect" parent="."]
+margin_left = 1319.71
+margin_top = -14.1994
+margin_right = 2279.51
+margin_bottom = 818.801
+rect_rotation = 90.3208
+rect_scale = Vector2( 1.3, 1.6 )
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 511.798, 342.925 )
+
+[node name="RocaTimer" type="Timer" parent="."]
+wait_time = 0.321
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="InicioTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="PositionDeInicio" type="Position2D" parent="."]
+position = Vector2( 320, 480 )
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="RocaPosicion" type="PathFollow2D" parent="Path2D"]
+position = Vector2( 0.68103, -1.34702 )
+rotation = 0.00332451
+
+[node name="Interfaz" parent="." instance=ExtResource( 4 )]
+
+[node name="Audiofin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="Musica" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+[connection signal="golpe" from="Player" to="." method="Game_over"]
+[connection signal="timeout" from="RocaTimer" to="." method="_on_RocaTimer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
+[connection signal="timeout" from="InicioTimer" to="." method="_on_InicioTimer_timeout"]
+[connection signal="iniciar_juego" from="Interfaz" to="." method="nuevo_juego"]
